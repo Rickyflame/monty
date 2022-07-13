@@ -2,6 +2,24 @@
 #include <ctype.h>
 
 /**
+ * check_for_digit - check that a string only contains digits
+ * @arg: string to check
+ * Return: 0 if only digits otherwise 1
+ */
+static int check_for_digit(char *arg)
+{
+	int i;
+
+	for (i = 0; arg[i]; i++)
+	{
+		if(arg[i] == '-' && i == 0)
+			continue;
+		if (isdigit(arg[i]) == 0)
+			return (1);
+	}
+	return (0);
+}
+/**
  * m_push - pushes an integer onto the stack
  * @stack: pointer to the beginning of the stack
  * @line_number: script line number
@@ -26,22 +44,4 @@ void m_push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	var.stack_len++;
-}
-/**
- * check_for_digit - checks that a string contains digits only
- * @arg: the string to check
- * Return: void has no return value
- */
-static int check_for_digit(char *arg)
-{
-	int i;
-
-	for (i = 0; arg[i]; i++)
-	{
-		if (arg[i] == '-' && i == 0)
-			continue;
-		if (isdigit(arg[i]) == 0)
-			return (1);
-	}
-	return (0);
 }
