@@ -3,7 +3,7 @@
 
 /**
  * m_pchar - print character from top of stack
- * @stack: pointer to top of stack
+ * @stack_t: pointer to top of stack
  * @line_number: number of current operation
  * Return: void has no return value
  */
