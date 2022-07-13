@@ -1,5 +1,5 @@
 #include "monty.h"
-#include <ctypes.h>
+#include <ctype.h>
 
 /**
  * m_pstr - print string from stack of integers from
