@@ -6,7 +6,7 @@
  * @line_number: number of current operation
  * Return: void has no return value
  */
-void m_pint(stack_t **stack, unsigned int line_number);
+void m_pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *head = *stack;
 
