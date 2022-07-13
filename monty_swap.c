@@ -6,9 +6,9 @@
  * @line_number: number of current position
  * Return: void has no return value
  */
-vooid m_swap(stack_t **stack, unsigned int line_number)
+void m_swap(stack_t **stack, unsigned int line_number)
 {
-	stact_t *next;
+	stack_t *next;
 
 	if (var.stack_len < 2)
 	{
