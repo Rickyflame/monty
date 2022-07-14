@@ -1,20 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "monty.h"
 
 /**
- * m_pint - prints the value at the top of the stack
- * @stack: pointer to the head of the stack
- * @line_number: number of current operation
- * Return: void has no return value
+ * pint - print the value at the top of the stack
+ * @stack: stack given by main in start.c
+ * @line_cnt: amount of lines
+ *
+ * Return: void
  */
-void m_pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_cnt)
 {
-	stack_t *head = *stack;
-
-	if (var.stack_len == 0)
+	if (!stack || !(*stack))
 	{
-		dprintf(STDOUT_FILENO, "L%u: can't pint, stack empty\n",
-			line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_cnt);
 		exit(EXIT_FAILURE);
+
 	}
-	printf("%d\n", head->n);
+	printf("%d\n", (*stack)->n);
 }

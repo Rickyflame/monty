@@ -1,33 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "monty.h"
 
 /**
- * m_swap - swap the top two elements of the stack
- * @stack: pointer to head of the stack
- * @line_number: number of current position
- * Return: void has no return value
+ * swap -  swaps data from top to previous
+ * @stack: stack given by main
+ * @line_cnt: amount of lines
+ *
+ * Return: void
  */
-void m_swap(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack, unsigned int line_cnt)
 {
-	stack_t *next;
+	stack_t *tmp = NULL;
+	int tmp_n = 0;
 
-	if (var.stack_len < 2)
+	if (!stack || !*stack || !((*stack)->next))
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't swap, stack too short\n",
-			line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_cnt);
 		exit(EXIT_FAILURE);
 	}
-	if (var.stack_len == 2)
-	{
-		*stack = (*stack)->next;
-		return;
-	}
-	next = (*stack)->next;
-	next->prev = (*stack)->prev;
-	(*stack)->prev->next = next;
-	(*stack)->prev = next;
-	(*stack)->next = next->next;
-	next->next->prev = *stack;
-	next->next = *stack;
-	*stack = next;
+	tmp = *stack;
+	tmp_n = tmp->n;
+	tmp->n = tmp_n;
+
+	tmp->n = tmp->next->n;
+	tmp->next->n = tmp_n;
 }

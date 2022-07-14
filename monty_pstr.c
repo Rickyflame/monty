@@ -1,29 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "monty.h"
-#include <ctype.h>
 
 /**
- * m_pstr - print string from stack of integers from
- * non_ascii characters or end of stack
- * @stack: pointer to head of stack
- * @line:number: number of current operation
- * Return: void has no return value
+ * pstr - prints the contents of a stack_t stack as a string
+ * @stack: stack given by main
+ * @line_cnt: line counter for error messages
+ *
+ * Return: nothing
  */
-void m_pstr(stack_t **stack, unsigned int line_number)
+void pstr(stack_t **stack, unsigned int line_cnt __attribute__((unused)))
 {
-	stack_t *temp;
-	int ch;
+	stack_t *current = *stack;
 
-	(void)line_number;
-	temp = *stack;
-	while (temp!= NULL)
+	while (current)
 	{
-		ch = temp->n;
-		if(!isascii(ch) || ch == 0)
+		if (current->n <= 0 || current->n > 127)
 			break;
-		putchar(ch);
-		temp = temp->next;
-		if (temp == *stack)
-			break;
+		putchar((char) current->n);
+		current = current->next;
 	}
 	putchar('\n');
 }

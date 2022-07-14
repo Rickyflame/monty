@@ -1,30 +1,29 @@
-#include "monty.h"
+#include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include "monty.h"
 
 /**
- * m_pchar - print character from top of stack
- * @stack_t: pointer to top of stack
- * @line_number: number of current operation
- * Return: void has no return value
+ * pchar - prints the int at the top of the stack as char
+ * @stack: stack given by main
+ * @line_cnt: amount of lines
+ *
+ * Return: void
  */
-void m_pchar(stack_t **stack, unsigned int line_number)
+void pchar(stack_t **stack, unsigned int line_cnt)
 {
-	int ch;
-
-	if (var.stack_len < 1)
+	if (!stack || !(*stack))
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't pchar, stack empty\n",
-			line_number);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_cnt);
 		exit(EXIT_FAILURE);
+		return;
 	}
-	ch = (*stack)->n;
-	if (!isascii(ch))
+	if (isascii((*stack)->n) == 0)
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't pchar, value out of range\n",
-			line_number);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_cnt);
 		exit(EXIT_FAILURE);
+		return;
 	}
-	printf("%c\n", ch);
+	printf("%c\n", (*stack)->n);
 }

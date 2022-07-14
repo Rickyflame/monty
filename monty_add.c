@@ -1,23 +1,27 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 #include "monty.h"
 
 /**
- * m_add - add the top two elements of the stack
- * @stack: pointer to the beginning of the stack
- * @line_number: script line number
- * Return: void has no return value
+ * _add -  adds the first two nodes of the stack
+ * @stack: stack given by main
+ * @line_cnt: line counter
+ *
+ * Return: void
  */
-void m_add(stack_t **stack, unsigned int line_number)
+void _add(stack_t **stack, unsigned int line_cnt)
 {
-	int n = 0;
+	int result;
 
-	if (var.stack_len < 2)
+	if (!stack || !*stack || !((*stack)->next))
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't add, stack too short\n",
-			line_number);
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_cnt);
 		exit(EXIT_FAILURE);
 	}
-	n += (*stack)->n;
-	m_pop(stack, line_number);
-	(*stack)->n += n;
+
+	result = ((*stack)->next->n) + ((*stack)->n);
+	pop(stack, line_cnt); /*For top node*/
+	(*stack)->n = result;
 }
