@@ -1,10 +1,11 @@
 #include "monty.h"
 
 /**
- * rotl - rotates the stack to the top
- * @stack: pointer to the beginning of the linked list
+ * rotl - rotates the stack to the top.
+ * @stack:double pointer tot he begining of the linked list
  * @line_number: script line number
- * Return: void has no return value
+ *
+ * Return: void
  */
 void rotl(stack_t **stack, unsigned int line_number)
 {
