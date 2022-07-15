@@ -1,48 +1,53 @@
 #include "monty.h"
 
 /**
- * get_op - check op against valid opcodes
- * @op: op to check
- * @stack: double pointer to the beginnig of the stack
- * @line_number: script line number
- *
- * Return: void
- */
-void get_op(char *op, stack_t **stack, unsigned int line_number)
+* execute - executes the opcode
+* @stack: head linked list - stack
+* @counter: line_counter
+* @file: poiner to monty file
+* @content: line content
+* Return: no return
+*/
+int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
-	size_t i;
-	instruction_t valid_ops[] = {
-		{"push", m_push},
-		{"pall", m_pall},
-		{"pint", m_pint},
-		{"pop", m_pop},
-		{"swap", m_swap},
-		{"add", m_add},
-		{"nop", m_nop},
-		{"sub", m_sub},
-		{"mul", m_mul},
-		{"div", m_div},
-		{"mod", m_mod},
-		{"rotl", rotl},
-		{"rotr", rotr},
-		{"stack", m_stack},
-		{"queue", m_queue},
-		{"pchar", m_pchar},
-		{"pstr", m_pstr},
-		{NULL, NULL}
-	};
+	instruction_t opst[] = {
+				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
+				{"pop", f_pop},
+				{"swap", f_swap},
+				{"add", f_add},
+				{"nop", f_nop},
+				{"sub", f_sub},
+				{"div", f_div},
+				{"mul", f_mul},
+				{"mod", f_mod},
+				{"pchar", f_pchar},
+				{"pstr", f_pstr},
+				{"rotl", f_rotl},
+				{"rotr", f_rotr},
+				{"queue", f_queue},
+				{"stack", f_stack},
+				{NULL, NULL}
+				};
+	unsigned int i = 0;
+	char *op;
 
-	for (i = 0; valid_ops[i].opcode != NULL; i++)
+	op = strtok(content, " \n\t");
+	if (op && op[0] == '#')
+		return (0);
+	bus.arg = strtok(NULL, " \n\t");
+	while (opst[i].opcode && op)
 	{
-		if (strcmp(valid_ops[i].opcode, op) == 0)
-		{
-			valid_ops[i].f(stack, line_number);
-			return;
+		if (strcmp(op, opst[i].opcode) == 0)
+		{	opst[i].f(stack, counter);
+			return (0);
 		}
+		i++;
 	}
-
-	dprintf(STDOUT_FILENO,
-		"L%u: unknown instruction %s\n",
-		line_number, op);
-	exit(EXIT_FAILURE);
+	if (op && opst[i].opcode == NULL)
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
+		fclose(file);
+		free(content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE); }
+	return (1);
 }
