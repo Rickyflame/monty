@@ -1,26 +1,21 @@
 #include "monty.h"
-
 /**
- * m_pall - print all values on `stack' starting from the top
- * @stack: double pointer to head of stack
- * @line_number: line number being executed from script file
- *
- * Return: void
- */
-void m_pall(stack_t **stack, unsigned int line_number)
+ * f_pall - prints the stack
+ * @head: stack head
+ * @counter: no used
+ * Return: no return
+*/
+void f_pall(stack_t **head, unsigned int counter)
 {
-	stack_t *head;
+	stack_t *h;
+	(void)counter;
 
-	(void)(line_number);
-
-	head = *stack;
-	while (head != NULL)
+	h = *head;
+	if (h == NULL)
+		return;
+	while (h)
 	{
-		printf("%d\n", head->n);
-		head = head->next;
-		if (head == *stack)
-		{
-			return;
-		}
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }
